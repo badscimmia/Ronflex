@@ -951,7 +951,7 @@ static bool check_fastcharge(struct max77804k_charger_data *charger)
 	return ret;
 }
 
->>>>>>> 6297492... Update the fastcharge (for screen on limit and mtp while fastchrg) thanks to @ktoonsez who made it available for the S5!
+
 static int sec_chg_set_property(struct power_supply *psy,
 		enum power_supply_property psp,
 		const union power_supply_propval *val)
@@ -1198,18 +1198,7 @@ got_override:
 		break;
 	}
 #endif
-#if defined(CONFIG_BATTERY_SWELLING)
-	case POWER_SUPPLY_PROP_VOLTAGE_MAX:
-		pr_info("%s: float voltage(%d)\n", __func__, val->intval);
-		reg_data = max77804k_get_float_voltage_data(val->intval);
-		max77804k_update_reg(charger->max77804k->i2c, MAX77804K_CHG_REG_CHG_CNFG_04,
-				(reg_data << MAX77804K_CHG_CNFG_04_CHG_CV_PRM_SHIFT),
-				MAX77804K_CHG_CNFG_04_CHG_CV_PRM_MASK);
-		max77804k_read_reg(charger->max77804k->i2c,
-				MAX77804K_CHG_REG_CHG_CNFG_04, &reg_data);
-		pr_info("%s: Float voltage set to : 0x%x\n", __func__, reg_data);
-		break;
-#endif
+
 	default:
 		return -EINVAL;
 	}
